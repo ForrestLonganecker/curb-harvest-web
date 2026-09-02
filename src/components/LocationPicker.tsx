@@ -62,7 +62,7 @@ export function LocationPicker({ onChange }: LocationPickerProps) {
         .addTo(map);
       marker.on("dragend", () => {
         const pos = marker.getLngLat();
-        onChangeRef.current({ latitude: pos.lat, longitude: pos.lng });
+        onChangeRef.current({ latitude: pos.lng, longitude: pos.lat });
       });
       markerRef.current = marker;
     } else {
@@ -128,8 +128,8 @@ export function LocationPicker({ onChange }: LocationPickerProps) {
       {error && <p className="text-sm text-red-600">{error}</p>}
       {suggestions.length > 0 && (
         <ul className="rounded border border-black/[.08] dark:border-white/[.145]">
-          {suggestions.map((suggestion) => (
-            <li key={suggestion.fullAddress}>
+          {suggestions.map((suggestion, index) => (
+            <li key={index}>
               <button
                 type="button"
                 onClick={() => selectSuggestion(suggestion)}

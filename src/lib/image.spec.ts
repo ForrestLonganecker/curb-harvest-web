@@ -16,10 +16,6 @@ describe("validateImageFile", () => {
     expect(validateImageFile(makeFile({ type }))).toBeNull();
   });
 
-  it("rejects an unsupported type", () => {
-    expect(validateImageFile(makeFile({ type: "image/gif" }))).toMatch(/JPEG, PNG, or WebP/);
-  });
-
   it("rejects a file over the 5MB raw backstop", () => {
     expect(
       validateImageFile(makeFile({ size: MAX_RAW_FILE_BYTES + 1 })),

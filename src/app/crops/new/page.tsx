@@ -55,14 +55,9 @@ export default function NewCropPage() {
       return;
     }
 
-    try {
-      const resized = await resizeImage(file);
-      setPhoto(resized);
-      setPhotoPreviewUrl(URL.createObjectURL(resized));
-    } catch {
-      setPhotoError("Could not process that photo. Try a different one.");
-      setPhoto(null);
-    }
+    const resized = await resizeImage(file);
+    setPhoto(resized);
+    setPhotoPreviewUrl(URL.createObjectURL(resized));
   }
 
   function resetForm() {
@@ -86,25 +81,26 @@ export default function NewCropPage() {
       return;
     }
 
-    const parsed = createCropSchema.omit({ imageId: true }).safeParse({
+    const result2 = createCropSchema.omit({ imageId: true }).safeParse({
       latitude: location.latitude,
       longitude: location.longitude,
       foodTypeId,
       variety: variety.trim() || undefined,
       harvestStatus,
     });
-    if (!parsed.success) {
-      setSubmitError(parsed.error.issues[0]?.message ?? "Please check the form.");
+    if (!result2.success) {
+      setSubmitError(result2.error.issues[0]?.message ?? "Please check the form.");
       return;
     }
 
+    console.log(location);
     setSubmitting(true);
     try {
       const { imageId, uploadUrl } = await requestUploadUrl(photo.type);
       await uploadFile(uploadUrl, photo);
       await confirmUpload(imageId);
 
-      await createCrop({ ...parsed.data, imageId });
+      await createCrop({ ...result2.data, imageId });
 
       setSuccess(true);
       resetForm();

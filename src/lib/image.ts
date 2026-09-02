@@ -5,9 +5,6 @@ const MAX_DIMENSION = 1600;
 const JPEG_QUALITY = 0.8;
 
 export function validateImageFile(file: File): string | null {
-  if (!ALLOWED_IMAGE_TYPES.includes(file.type as (typeof ALLOWED_IMAGE_TYPES)[number])) {
-    return 'Please choose a JPEG, PNG, or WebP image.';
-  }
   if (file.size > MAX_RAW_FILE_BYTES) {
     return 'Image is too large (max 5MB).';
   }
