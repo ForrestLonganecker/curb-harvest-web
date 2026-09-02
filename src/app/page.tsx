@@ -44,6 +44,9 @@ export default function Home() {
             <p className="text-zinc-600 dark:text-zinc-400">
               Signed in as {user.email}
             </p>
+            <ButtonLink variant="primary" href="/crops/new">
+              Share a crop
+            </ButtonLink>
             <Button variant="secondary" onClick={handleLogout}>
               Sign out
             </Button>
