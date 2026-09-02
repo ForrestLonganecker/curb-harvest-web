@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Button, ButtonLink } from "@/components/Button";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -43,20 +44,14 @@ export default function Home() {
             <p className="text-zinc-600 dark:text-zinc-400">
               Signed in as {user.email}
             </p>
-            <button
-              onClick={handleLogout}
-              className="rounded-full border border-solid border-black/[.08] px-5 py-2.5 transition-colors hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            >
+            <Button variant="secondary" onClick={handleLogout}>
               Sign out
-            </button>
+            </Button>
           </>
         ) : (
-          <a
-            href={`${API_URL}/auth/google`}
-            className="rounded-full bg-foreground px-5 py-2.5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
-          >
+          <ButtonLink variant="primary" href={`${API_URL}/auth/google`}>
             Sign in with Google
-          </a>
+          </ButtonLink>
         )}
       </main>
     </div>
